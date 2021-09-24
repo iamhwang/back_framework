@@ -1,18 +1,18 @@
 import express from 'express';
+import cors from 'cors';
 
-import mdbConn from './mariaDBConn';
+import loginRouter from './api/login';
+import MariaDBRouter from './api/mariaDB';
 
 const app = express();
 
-mdbConn.getUserList()
-  .then((rows) => {
-    console.log(rows);
-  })
-  .catch((errMsg) => {
-    console.log(errMsg);
-  });
- 
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+app.use("/login", loginRouter);
+app.use("/MariaDB", MariaDBRouter);
 
 app.listen(3000, function() {
-    console.log("start server on port 3000")
+  console.log("start server on port 3000")
 });

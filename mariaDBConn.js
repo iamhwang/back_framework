@@ -1,6 +1,7 @@
 import mariadb from 'mariadb';
 
 const pool = mariadb.createPool({
+    //database: back
     host: 'localhost',
     port: 3306,
     user: 'root',
@@ -8,7 +9,8 @@ const pool = mariadb.createPool({
     connectionLimit: 5,
 })
 
-async function GetUserList(){
+async function GetUserList(no){
+    console.log('okkkkk' + no);
     let conn, rows;
     try{
         conn = await pool.getConnection();
@@ -20,7 +22,7 @@ async function GetUserList(){
     }
     finally{
         if (conn) conn.end();
-        return rows[0];
+        return rows;//rows[0]; //rows;
     }
 }
  
