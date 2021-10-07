@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 
-import loginRouter from './api/login';
-import MariaDBRouter from './api/mariaDB';
+/* ROUTE */
+import loginRouter from './api/user/userLogin/api_userLogin';
 
 const app = express();
 
@@ -10,9 +10,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.use("/login", loginRouter);
-app.use("/MariaDB", MariaDBRouter);
+app.use("/api/login", loginRouter);
 
-app.listen(3000, function() {
-  console.log("start server on port 3000")
+const PORT = 3003;
+
+app.listen(PORT, function() {
+  console.log("SERVER IS RUNNING ON " + PORT);
 });
