@@ -1,24 +1,27 @@
 import express from 'express';
 import getConnection from '../../../database/connection/mariaDB';
 
-import { userLogin } from './sql_userLogin';
-import checkLogin from './ftn_userLogin';
+import { createUser } from './sql_createUser';
 
 const router = express.Router();
 
-export default router.post('/userLogin', function(req, res) {
+export default router.post('/createUser', function(req, res) {
   var _username = req.body.id;
   var _password = req.body.password;
  
   getConnection((err, conn) => {
-    conn.query(userLogin, [_username, _password], (err, rows) => {
+    conn.query(createUser, [_username, _password], (err) => {
       if (err) {
         console.error(err);  
         throw err;
       }
 
       if (!err) {
-        const data = checkLogin({ rows });
+        const data = { 
+          status: true, 
+          statusCode: 201,
+          msg: '회원가입을 완료했습니다.', 
+        };
         return res.send(data);
       }
     });
