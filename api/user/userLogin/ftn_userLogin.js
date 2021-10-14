@@ -1,20 +1,22 @@
-export default function checkLogin ({ rows }) {
+import apiResponse from "../../_apiResponse";
+
+export default function ftn_userLogin ({ rows }) {
   if (rows.length === 0 || rows === '') {
-    const loginFail = {
-      status: false,
-      statusCode: 400,
-      msg: ' 아이디 또는 비밀번호가 잘못 입력되었습니다.',
-    };
-    return loginFail;
+    return apiResponse({
+      statusCode:400,
+      message: '아이디 혹은 비밀번호가 일치하지 않습니다.',
+    });
   }
 
   if(rows.length !== 0 || rows !== '') {
-    const loginSuccess = {
-      status: true,
-      statusCode: 200,
+    const data = {
       id: rows[0].ID,
+      no: rows[0].NO,
       accessToken: 'loginSuccessToken',
     };
-    return loginSuccess;
+    return apiResponse({
+      statusCode:109,
+      data,
+    });
   }
 }

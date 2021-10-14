@@ -1,25 +1,25 @@
 import express from 'express';
 import getConnection from '../../../database/connection/mariaDB';
 
-import { sql_userLogin } from './sql_userLogin';
-import ftn_userLogin from './ftn_userLogin';
+import { SQL_OUTLINE } from './sql_outline';
+import FUNCTION_OUTLINE from './ftn_outline';
 
 const router = express.Router();
 
 export default router.post('/userLogin', function(req, res) {
-  var _username = req.body.id;
-  var _password = req.body.password;
+  var { /* REQ 값 */} = req.body;
  
   getConnection((err, conn) => {
-    conn.query(sql_userLogin, [_username, _password], (err, rows) => {
+    conn.query(SQL_OUTLINE, [/* REQ 값 */], (err, rows) => {
       if (err) {
         console.error(err);  
         throw err;
       }
 
       if (!err) {
-        const data = ftn_userLogin({ rows });
-        return res.send(data);
+        /* QUERY 실행 결과 체크 */
+        const API_RESPONSE = FUNCTION_OUTLINE({ rows }); 
+        return res.send(API_RESPONSE);
       }
     });
 
