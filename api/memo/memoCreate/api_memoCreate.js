@@ -9,7 +9,7 @@ const router = express.Router();
 export default router.post('/memoCreate', function(req, res) {
   var _no = req.body.no;
   var _memo = req.body.memo;
- 
+
   getConnection((err, conn) => {
     conn.query(sql_memoCreate, [_no, _memo], (err) => {
       if (err) {
